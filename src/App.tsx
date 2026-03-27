@@ -71,7 +71,7 @@ export default function App() {
   const [timeRange, setTimeRange] = useState<string>('all');
   const [heatmapMode, setHeatmapMode] = useState<'binary' | 'intensity'>('intensity');
   const [sortConfig, setSortConfig] = useState<{ key: keyof Stream; direction: 'asc' | 'desc' }>({ key: 'date', direction: 'desc' });
-  const [dataset, setDataset] = useState<'stats.json' | 'demo_stats.json'>('demo_stats.json');
+  const [dataset, setDataset] = useState<'stats.json' | 'demo_stats.json'>('stats.json');
   const [showPopup, setShowPopup] = useState<string | null>(null);
 
   useEffect(() => {

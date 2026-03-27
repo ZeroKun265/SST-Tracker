@@ -178,12 +178,17 @@ def calculate_stats():
     if not os.path.exists('public'):
         os.makedirs('public')
 
+    # Ask for output file
+    use_demo = input("Write to demo_stats.json? (y/N, default: No): ").lower().strip()
+    filename = 'demo_stats.json' if use_demo in ['y', 'yes'] else 'stats.json'
+    filepath = os.path.join('public', filename)
+
     # Write JSON with explicit encoding and no trailing garbage
-    with open('public/demo_stats.json', 'w', encoding='utf-8') as f:
+    with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
         f.truncate() # Ensure file is exactly the size of the JSON
     
-    print(f"Stats updated successfully in public/demo_stats.json (Discord Enabled: {DISCORD_ENABLED})")
+    print(f"Stats updated successfully in {filepath} (Discord Enabled: {DISCORD_ENABLED})")
 
 if __name__ == "__main__":
     calculate_stats()
