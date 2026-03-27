@@ -7,7 +7,7 @@
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && npx gh-pages -d dist",
+    "deploy": "npm run build && npx gh-pages -d docs",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"
   },

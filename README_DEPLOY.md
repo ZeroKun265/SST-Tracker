@@ -1,30 +1,38 @@
 # SST Clock - GitHub Pages Deployment Guide
 
-This project is configured to be deployed to GitHub Pages. You have two options for deployment:
+I have updated the project to use the **`docs/`** folder for deployment, which is a common and simple way to host on GitHub Pages.
 
-## Option 1: GitHub Actions (Recommended)
+## How to Deploy (Manual Method)
 
-This is the most modern and automated way. Every time you push to the `main` branch, GitHub will automatically build and deploy your site.
-
-1.  **Push your code** to a GitHub repository.
-2.  Go to your repository on GitHub.
-3.  Navigate to **Settings** > **Pages**.
-4.  Under **Build and deployment** > **Source**, select **GitHub Actions**.
-5.  The workflow I created in `.github/workflows/deploy.yml` will take care of the rest!
-
-## Option 2: Manual Deployment
-
-If you prefer to deploy manually from your terminal:
-
-1.  Ensure you have a `homepage` field in your `package.json` pointing to your URL:
-    `"homepage": "https://<username>.github.io/<repo-name>/"`
-2.  Run the following command:
+1.  **Build the project**: Run the following command in your terminal:
     ```bash
-    npm run deploy
+    npm run build
     ```
+    This will create a folder named `docs` in your project's root.
+
+2.  **Commit and Push**: Add the `docs` folder to your Git repository and push it to GitHub:
+    ```bash
+    git add docs
+    git commit -m "Build for deployment"
+    git push origin main
+    ```
+
+3.  **Configure GitHub Settings**:
+    - Go to your repository on GitHub.
+    - Navigate to **Settings** > **Pages**.
+    - Under **Build and deployment** > **Source**, select **Deploy from a branch**.
+    - Under **Branch**, select **main** and change the folder from `/ (root)` to **`/docs`**.
+    - Click **Save**.
+
+## Option 2: GitHub Actions (Automated)
+
+If you prefer the fully automated way (where you don't have to push the `docs` folder manually), I have also updated the `.github/workflows/deploy.yml` to use the `docs` folder.
+
+1.  Go to **Settings** > **Pages**.
+2.  Under **Build and deployment** > **Source**, select **GitHub Actions**.
 
 ## Important Notes
 
-- **Base Path**: I have updated `vite.config.ts` with `base: './'` to ensure that assets (CSS, JS, Images) load correctly regardless of whether the site is at the root or in a subfolder.
-- **Data Updates**: Remember that the website displays data from `stats.json`. You need to run the `sst_tracker.py` script locally and push the updated `stats.json` to GitHub for the website to show new data.
-- **API Keys**: Do NOT push your `config.json` to GitHub. GitHub Pages is for the **frontend only**. The Python script is meant to be run locally or in a private environment.
+- **Base Path**: I have set `base: './'` in `vite.config.ts` to ensure assets load correctly.
+- **Output Directory**: I have configured Vite to output to `docs/` instead of `dist/`.
+- **Data Updates**: Remember to push your updated `stats.json` inside the `public/` folder whenever you run the Python tracker!
