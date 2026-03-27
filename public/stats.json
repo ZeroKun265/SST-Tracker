@@ -1,30 +1,129 @@
 {
-  "lastUpdated": "2026-03-27T12:42:00Z",
-  "streamer": "Davide",
+  "lastUpdated": "2026-03-27T12:54:47.052672Z",
+  "streamer": "omenkitty12",
   "streams": [
     {
-      "id": "1",
-      "date": "2026-03-27",
-      "startTime": "2026-03-27T10:00:00Z",
-      "endTime": "2026-03-27T14:00:00Z",
-      "durationMinutes": 240,
-      "announcedTime": "2026-03-27T09:55:00Z",
-      "delayMinutes": 5
+      "id": "2732362504",
+      "date": "2026-03-26",
+      "startTime": "2026-03-26T18:30:45Z",
+      "endTime": "2026-03-26T20:48:45Z",
+      "durationMinutes": 138,
+      "announcedTime": "2026-03-26T18:30:45Z",
+      "delayMinutes": 0
     },
     {
-      "id": "2",
-      "date": "2026-03-26",
-      "startTime": "2026-03-26T10:00:00Z",
-      "endTime": "2026-03-26T14:00:00Z",
-      "durationMinutes": 240,
-      "announcedTime": "2026-03-26T09:50:00Z",
-      "delayMinutes": 10
+      "id": "2730718052",
+      "date": "2026-03-24",
+      "startTime": "2026-03-24T18:13:27Z",
+      "endTime": "2026-03-24T20:14:27Z",
+      "durationMinutes": 121,
+      "announcedTime": "2026-03-24T18:13:27Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2728337022",
+      "date": "2026-03-21",
+      "startTime": "2026-03-21T20:21:50Z",
+      "endTime": "2026-03-21T23:32:50Z",
+      "durationMinutes": 191,
+      "announcedTime": "2026-03-21T20:21:50Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2726361889",
+      "date": "2026-03-19",
+      "startTime": "2026-03-19T15:26:59Z",
+      "endTime": "2026-03-19T17:36:59Z",
+      "durationMinutes": 130,
+      "announcedTime": "2026-03-19T15:26:59Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2723948458",
+      "date": "2026-03-16",
+      "startTime": "2026-03-16T16:34:21Z",
+      "endTime": "2026-03-16T19:00:20Z",
+      "durationMinutes": 142,
+      "announcedTime": "2026-03-16T16:34:21Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2721480243",
+      "date": "2026-03-13",
+      "startTime": "2026-03-13T19:59:21Z",
+      "endTime": "2026-03-13T22:14:21Z",
+      "durationMinutes": 135,
+      "announcedTime": "2026-03-13T19:59:21Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2719657378",
+      "date": "2026-03-11",
+      "startTime": "2026-03-11T16:36:02Z",
+      "endTime": "2026-03-11T18:20:02Z",
+      "durationMinutes": 104,
+      "announcedTime": "2026-03-11T16:36:02Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2718015611",
+      "date": "2026-03-09",
+      "startTime": "2026-03-09T16:20:47Z",
+      "endTime": "2026-03-09T18:22:47Z",
+      "durationMinutes": 122,
+      "announcedTime": "2026-03-09T16:20:47Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2715548068",
+      "date": "2026-03-06",
+      "startTime": "2026-03-06T20:44:01Z",
+      "endTime": "2026-03-06T22:50:01Z",
+      "durationMinutes": 126,
+      "announcedTime": "2026-03-06T20:44:01Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2713701829",
+      "date": "2026-03-04",
+      "startTime": "2026-03-04T17:53:49Z",
+      "endTime": "2026-03-04T20:11:49Z",
+      "durationMinutes": 138,
+      "announcedTime": "2026-03-04T17:53:49Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2712151192",
+      "date": "2026-03-02",
+      "startTime": "2026-03-02T21:06:55Z",
+      "endTime": "2026-03-02T22:33:55Z",
+      "durationMinutes": 87,
+      "announcedTime": "2026-03-02T21:06:55Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2709178600",
+      "date": "2026-02-27",
+      "startTime": "2026-02-27T15:37:36Z",
+      "endTime": "2026-02-27T17:46:21Z",
+      "durationMinutes": 112,
+      "announcedTime": "2026-02-27T15:37:36Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2707678815",
+      "date": "2026-02-25",
+      "startTime": "2026-02-25T22:42:29Z",
+      "endTime": "2026-02-25T22:49:10Z",
+      "durationMinutes": 6,
+      "announcedTime": "2026-02-25T22:42:29Z",
+      "delayMinutes": 0
     }
   ],
   "stats": {
-    "averageDelay": 7.5,
-    "totalStreamTime": 480,
-    "longestDelay": 10,
-    "shortestDelay": 5
+    "averageDelay": 0.0,
+    "totalStreamTime": 1552,
+    "longestDelay": 0,
+    "shortestDelay": 0
   }
 }
