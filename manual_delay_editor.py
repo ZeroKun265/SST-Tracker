@@ -2,6 +2,27 @@ import json
 import os
 from datetime import datetime
 
+def save_and_recalculate(data, stats_path, updated_count):
+    streams = data.get('streams', [])
+    # Recalculate stats
+    delays = [s.get('delayMinutes', 0) for s in streams if s.get('delayMinutes', 0) > 0]
+    durations = [s.get('durationMinutes', 0) for s in streams]
+    
+    if 'stats' not in data:
+        data['stats'] = {}
+        
+    if delays:
+        data['stats']['averageDelay'] = round(sum(delays) / len(delays), 2)
+        data['stats']['longestDelay'] = max(delays)
+        data['stats']['shortestDelay'] = min(delays)
+    
+    data['stats']['totalStreamTime'] = sum(durations)
+    data['lastUpdated'] = datetime.utcnow().isoformat() + 'Z'
+
+    with open(stats_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2)
+    print(f"\nSaved {updated_count} updates and recalculated statistics.")
+
 def manual_delay_editor():
     stats_path = os.path.join('public', 'stats.json')
     
@@ -33,10 +54,10 @@ def manual_delay_editor():
                 user_input = input("Enter delay in minutes: ").strip().lower()
                 
                 if user_input == 'exit':
-                    # Save and exit
-                    with open(stats_path, 'w', encoding='utf-8') as f:
-                        json.dump(data, f, indent=2)
-                    print(f"\nSaved {updated_count} updates. Exiting.")
+                    if updated_count > 0:
+                        save_and_recalculate(data, stats_path, updated_count)
+                    else:
+                        print("\nNo updates made. Exiting.")
                     return
                 
                 if user_input == 'skip':
@@ -54,9 +75,7 @@ def manual_delay_editor():
 
     # Final save
     if updated_count > 0:
-        with open(stats_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=2)
-        print(f"Finished! Updated {updated_count} streams.")
+        save_and_recalculate(data, stats_path, updated_count)
     else:
         print("No streams were updated.")
 
