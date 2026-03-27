@@ -10,7 +10,8 @@ import {
   LineChart, 
   Line,
   AreaChart,
-  Area
+  Area,
+  ReferenceLine
 } from 'recharts';
 import { 
   Clock, 
@@ -18,6 +19,7 @@ import {
   Gamepad2, 
   TrendingUp, 
   AlertCircle, 
+  AlertTriangle,
   ExternalLink, 
   Moon, 
   Sun,
@@ -27,7 +29,8 @@ import {
   ChevronDown,
   Filter,
   Layers,
-  LayoutGrid
+  LayoutGrid,
+  ShieldCheck
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './lib/utils';
@@ -137,6 +140,23 @@ export default function App() {
       });
   }, [data, timeRange]);
 
+  const filteredStats = useMemo(() => {
+    if (!chartData.length) return { avgDuration: 0, totalDelay: 0, consistency: 0 };
+    
+    const totalDuration = chartData.reduce((acc, s) => acc + s.duration, 0);
+    const avgDuration = totalDuration / chartData.length;
+    
+    const totalDelay = chartData.reduce((acc, s) => acc + s.delay, 0);
+    const avgDelay = totalDelay / chartData.length;
+    
+    const delays = chartData.map(s => s.delay);
+    const maxDelay = Math.max(...delays);
+    const minDelay = Math.min(...delays);
+    const consistency = Math.round(100 - (maxDelay - minDelay));
+
+    return { avgDuration, avgDelay, totalDelay, consistency };
+  }, [chartData]);
+
   const sortedStreams = useMemo(() => {
     if (!data) return [];
     
@@ -198,6 +218,7 @@ export default function App() {
     { id: 'delay', label: 'SST Delay', icon: TrendingUp },
     { id: 'visual', label: '3D Tower', icon: Layers },
     { id: 'info', label: 'Stream Info', icon: Info },
+    { id: 'policy', label: 'Data Policy', icon: ShieldCheck },
   ];
 
   const timeRangeOptions = [
@@ -272,9 +293,23 @@ export default function App() {
             >
               <Clock className="text-white w-6 h-6" />
             </motion.div>
-            <h1 className={cn("text-xl font-bold tracking-tight", !isDarkMode && "text-slate-950")}>
-              SST <span className="text-violet-500">Clock</span>
-              {dataset === 'demo_stats.json' && <span className="ml-2 text-[10px] bg-amber-500/20 text-amber-500 px-1.5 py-0.5 rounded uppercase tracking-tighter">Demo</span>}
+            <h1 className={cn("text-xl font-bold tracking-tight flex items-center gap-2", !isDarkMode && "text-slate-950")}>
+              <span>SST <span className="text-violet-500">Clock</span></span>
+              {dataset === 'demo_stats.json' && (
+                <span className="text-[10px] bg-amber-500/20 text-amber-500 px-1.5 py-0.5 rounded uppercase tracking-tighter">
+                  Demo
+                </span>
+              )}
+              <div 
+                className="group/warn relative"
+                title="Delay is currently not implemented due to lack of discord integration, see Data Policy for more info"
+              >
+                <AlertTriangle className="w-4 h-4 text-amber-500 cursor-help animate-pulse" />
+                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 p-3 rounded-xl bg-slate-900 text-white text-[11px] font-medium leading-relaxed opacity-0 invisible group-hover/warn:opacity-100 group-hover/warn:visible transition-all z-[100] shadow-2xl border border-white/10 text-center">
+                  Delay is currently not implemented due to lack of discord integration, see Data Policy for more info
+                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45 border-t border-l border-white/10" />
+                </div>
+              </div>
             </h1>
           </div>
 
@@ -385,10 +420,11 @@ export default function App() {
                 </div>
               </section>
 
-              <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
                   { label: 'Longest Delay', value: `${data.stats.longestDelay}m`, icon: AlertCircle, color: 'text-red-400' },
                   { label: 'Shortest Delay', value: `${data.stats.shortestDelay}m`, icon: Zap, color: 'text-yellow-400' },
+                  { label: 'Avg Stream Length', value: `${Math.floor((data.stats.totalStreamTime / data.streams.length) / 60)}h ${Math.round((data.stats.totalStreamTime / data.streams.length) % 60)}m`, icon: TrendingUp, color: 'text-emerald-400' },
                   { label: 'Total Streamed', value: `${Math.round(data.stats.totalStreamTime / 60)}h`, icon: Clock, color: 'text-blue-400' },
                 ].map((stat, i) => (
                   <div 
@@ -679,7 +715,7 @@ export default function App() {
                   isDarkMode ? "bg-white/5 border-white/10" : "bg-slate-50/50 border-slate-200 shadow-sm"
                 )}>
                   <h4 className={cn("text-sm mb-2", isDarkMode ? "text-slate-400" : "text-slate-600")}>Average Delay</h4>
-                  <div className="text-3xl font-bold text-violet-500">{data.stats.averageDelay}m</div>
+                  <div className="text-3xl font-bold text-violet-500">{Math.round(filteredStats.avgDelay)}m</div>
                 </div>
                 <div className={cn(
                   "p-6 rounded-3xl border backdrop-blur-sm transition-colors",
@@ -687,7 +723,7 @@ export default function App() {
                 )}>
                   <h4 className={cn("text-sm mb-2", isDarkMode ? "text-slate-400" : "text-slate-600")}>Consistency</h4>
                   <div className="text-3xl font-bold text-blue-500">
-                    {Math.round(100 - (data.stats.longestDelay - data.stats.shortestDelay))}%
+                    {filteredStats.consistency}%
                   </div>
                 </div>
                 <div className={cn(
@@ -696,7 +732,7 @@ export default function App() {
                 )}>
                   <h4 className={cn("text-sm mb-2", isDarkMode ? "text-slate-400" : "text-slate-600")}>Total Delay Time</h4>
                   <div className="text-3xl font-bold text-red-500">
-                    {Math.round(data.streams.reduce((acc, s) => acc + s.delayMinutes, 0) / 60)}h
+                    {Math.round(filteredStats.totalDelay / 60)}h
                   </div>
                 </div>
               </div>
@@ -739,9 +775,47 @@ export default function App() {
                         }}
                         itemStyle={{ color: '#3b82f6' }}
                       />
+                      <ReferenceLine y={filteredStats.avgDuration} stroke="#3b82f6" strokeDasharray="3 3" label={{ value: 'Avg', position: 'right', fill: '#3b82f6', fontSize: 10 }} />
                       <Bar dataKey="duration" fill="#3b82f6" radius={[6, 6, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className={cn(
+                  "p-6 rounded-3xl border backdrop-blur-sm transition-colors",
+                  isDarkMode ? "bg-white/5 border-white/10" : "bg-slate-50/50 border-slate-200 shadow-sm"
+                )}>
+                  <h4 className={cn("text-sm mb-2", isDarkMode ? "text-slate-400" : "text-slate-600")}>Avg Stream Length</h4>
+                  <div className="text-3xl font-bold text-emerald-500">
+                    {Math.floor(filteredStats.avgDuration / 60)}h {Math.round(filteredStats.avgDuration % 60)}m
+                  </div>
+                </div>
+                <div className={cn(
+                  "p-6 rounded-3xl border backdrop-blur-sm transition-colors",
+                  isDarkMode ? "bg-white/5 border-white/10" : "bg-slate-50/50 border-slate-200 shadow-sm"
+                )}>
+                  <h4 className={cn("text-sm mb-2", isDarkMode ? "text-slate-400" : "text-slate-600")}>Average Delay</h4>
+                  <div className="text-3xl font-bold text-violet-500">{Math.round(filteredStats.avgDelay)}m</div>
+                </div>
+                <div className={cn(
+                  "p-6 rounded-3xl border backdrop-blur-sm transition-colors",
+                  isDarkMode ? "bg-white/5 border-white/10" : "bg-slate-50/50 border-slate-200 shadow-sm"
+                )}>
+                  <h4 className={cn("text-sm mb-2", isDarkMode ? "text-slate-400" : "text-slate-600")}>Consistency</h4>
+                  <div className="text-3xl font-bold text-blue-500">
+                    {filteredStats.consistency}%
+                  </div>
+                </div>
+                <div className={cn(
+                  "p-6 rounded-3xl border backdrop-blur-sm transition-colors",
+                  isDarkMode ? "bg-white/5 border-white/10" : "bg-slate-50/50 border-slate-200 shadow-sm"
+                )}>
+                  <h4 className={cn("text-sm mb-2", isDarkMode ? "text-slate-400" : "text-slate-600")}>Total Stream Time</h4>
+                  <div className="text-3xl font-bold text-red-500">
+                    {Math.round(filteredStats.avgDuration * chartData.length / 60)}h
+                  </div>
                 </div>
               </div>
 
@@ -822,6 +896,66 @@ export default function App() {
                       ))}
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {activeTab === 'policy' && (
+            <motion.div
+              key="policy"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-8"
+            >
+              <div className={cn(
+                "p-8 rounded-3xl border backdrop-blur-sm transition-colors",
+                isDarkMode ? "bg-white/5 border-white/10" : "bg-slate-50/50 border-slate-200 shadow-sm"
+              )}>
+                <h3 className={cn("text-2xl font-bold mb-6 flex items-center gap-2", !isDarkMode && "text-slate-950")}>
+                  <ShieldCheck className="w-6 h-6 text-emerald-500" />
+                  Data Policy & Methodology
+                </h3>
+                
+                <div className="space-y-6">
+                  <section>
+                    <h4 className={cn("text-lg font-semibold mb-2", !isDarkMode ? "text-slate-900" : "text-white")}>How Data is Fetched</h4>
+                    <p className={isDarkMode ? "text-slate-400" : "text-slate-700"}>
+                      The SST Tracker uses a custom Python script that interfaces directly with the Twitch Helix API. 
+                      It fetches the most recent VODs (Video on Demand) for the streamer to calculate start times, 
+                      end times, and total durations.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className={cn("text-lg font-semibold mb-2", !isDarkMode ? "text-slate-900" : "text-white")}>Historical Data Preservation</h4>
+                    <p className={isDarkMode ? "text-slate-400" : "text-slate-700"}>
+                      Twitch typically deletes VODs after a certain period (usually 14 to 60 days depending on partner status). 
+                      To ensure we don't lose the "legendary delay" history, our tracking tool performs <strong>incremental updates</strong>. 
+                      Once a stream's data is captured and stored in our local database (stats.json), it is preserved forever, 
+                      even if the original VOD is removed from Twitch.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className={cn("text-lg font-semibold mb-2", !isDarkMode ? "text-slate-900" : "text-white")}>Discord Integration</h4>
+                    <p className={isDarkMode ? "text-slate-400" : "text-slate-700"}>
+                      Currently, Discord integration is <strong>not yet implemented</strong>. In the future, we plan to 
+                      cross-reference Twitch start times with Discord announcement timestamps (e.g., "Going live soon!") 
+                      to provide even more accurate "Soon™" delay metrics.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h4 className={cn("text-lg font-semibold mb-2", !isDarkMode ? "text-slate-900" : "text-white")}>Disclaimers</h4>
+                    <ul className={cn("list-disc pl-5 space-y-2", isDarkMode ? "text-slate-400" : "text-slate-700")}>
+                      <li>All "SST" (Sara's Standard Time) metrics are for entertainment purposes only.</li>
+                      <li>Stream crashes or restarts on the same day are merged into a single daily entry to maintain accuracy.</li>
+                      <li>Manual adjustments may occasionally be made to correct API anomalies or edge cases.</li>
+                    </ul>
+                  </section>
                 </div>
               </div>
             </motion.div>
