@@ -1,43 +1,30 @@
 {
-  "lastUpdated": "2026-03-27T12:35:00.000Z",
-  "streamer": "omenkitty12",
+  "lastUpdated": "2026-03-27T12:42:00Z",
+  "streamer": "Davide",
   "streams": [
     {
-      "id": "2732362504",
+      "id": "1",
+      "date": "2026-03-27",
+      "startTime": "2026-03-27T10:00:00Z",
+      "endTime": "2026-03-27T14:00:00Z",
+      "durationMinutes": 240,
+      "announcedTime": "2026-03-27T09:55:00Z",
+      "delayMinutes": 5
+    },
+    {
+      "id": "2",
       "date": "2026-03-26",
-      "startTime": "2026-03-26T18:30:45Z",
-      "endTime": "2026-03-26T20:47:45Z",
-      "durationMinutes": 137,
-      "game": "VALORANT",
-      "announcedTime": "2026-03-26T18:30:45Z",
-      "delayMinutes": 0
-    },
-    {
-      "id": "2730718052",
-      "date": "2026-03-24",
-      "startTime": "2026-03-24T18:13:27Z",
-      "endTime": "2026-03-24T20:13:27Z",
-      "durationMinutes": 120,
-      "game": "VALORANT",
-      "announcedTime": "2026-03-24T18:13:27Z",
-      "delayMinutes": 0
-    },
-    {
-      "id": "2728337022",
-      "date": "2026-03-21",
-      "startTime": "2026-03-21T20:21:50Z",
-      "endTime": "2026-03-21T23:31:50Z",
-      "durationMinutes": 190,
-      "game": "VALORANT",
-      "announcedTime": "2026-03-21T20:21:50Z",
-      "delayMinutes": 0
+      "startTime": "2026-03-26T10:00:00Z",
+      "endTime": "2026-03-26T14:00:00Z",
+      "durationMinutes": 240,
+      "announcedTime": "2026-03-26T09:50:00Z",
+      "delayMinutes": 10
     }
   ],
   "stats": {
-    "averageDelay": 0.0,
-    "totalStreamTime": 447,
-    "mostPlayedGame": "VALORANT",
-    "longestDelay": 0,
-    "shortestDelay": 0
+    "averageDelay": 7.5,
+    "totalStreamTime": 480,
+    "longestDelay": 10,
+    "shortestDelay": 5
   }
 }

@@ -38,7 +38,6 @@ interface Stream {
   startTime: string;
   endTime: string;
   durationMinutes: number;
-  game: string;
   announcedTime: string;
   delayMinutes: number;
 }
@@ -46,7 +45,6 @@ interface Stream {
 interface Stats {
   averageDelay: number;
   totalStreamTime: number;
-  mostPlayedGame: string;
   longestDelay: number;
   shortestDelay: number;
 }
@@ -359,12 +357,11 @@ export default function App() {
                 </div>
               </section>
 
-              <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
                   { label: 'Longest Delay', value: `${data.stats.longestDelay}m`, icon: AlertCircle, color: 'text-red-400' },
                   { label: 'Shortest Delay', value: `${data.stats.shortestDelay}m`, icon: Zap, color: 'text-yellow-400' },
                   { label: 'Total Streamed', value: `${Math.round(data.stats.totalStreamTime / 60)}h`, icon: Clock, color: 'text-blue-400' },
-                  { label: 'Top Game', value: data.stats.mostPlayedGame, icon: Gamepad2, color: 'text-emerald-400' },
                 ].map((stat, i) => (
                   <div 
                     key={stat.label}
@@ -455,7 +452,7 @@ export default function App() {
                                 "w-3.5 h-3.5 rounded-sm cursor-help transition-colors",
                                 color
                               )}
-                              title={stream ? `${formatDate(dateStr)}: ${stream.delayMinutes}m delay (${stream.game})` : formatDate(dateStr)}
+                              title={stream ? `${formatDate(dateStr)}: ${stream.delayMinutes}m delay` : formatDate(dateStr)}
                             />
                           );
                         })}
@@ -543,14 +540,12 @@ export default function App() {
                               style={{ transform: 'rotateY(90deg) translateX(32px)' }}
                             />
 
-                            {/* Tooltip on Hover */}
                             <div className="absolute left-full ml-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 whitespace-nowrap">
                               <div className={cn(
                                 "px-3 py-2 rounded-lg border text-xs font-bold shadow-xl",
                                 isDarkMode ? "bg-slate-900 border-white/10 text-white" : "bg-white border-slate-200 text-slate-900"
                               )}>
                                 {formatDate(stream.date)}: +{stream.delayMinutes}m
-                                <div className="text-[10px] font-normal opacity-60">{stream.game}</div>
                               </div>
                             </div>
                           </motion.div>
@@ -753,14 +748,6 @@ export default function App() {
                         </th>
                         <th 
                           className="px-8 py-4 font-semibold cursor-pointer hover:text-violet-500 transition-colors"
-                          onClick={() => requestSort('game')}
-                        >
-                          <div className="flex items-center gap-1">
-                            Game {sortConfig.key === 'game' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-                          </div>
-                        </th>
-                        <th 
-                          className="px-8 py-4 font-semibold cursor-pointer hover:text-violet-500 transition-colors"
                           onClick={() => requestSort('durationMinutes')}
                         >
                           <div className="flex items-center gap-1">
@@ -789,16 +776,6 @@ export default function App() {
                           <td className="px-8 py-6">
                             <div className={cn("font-semibold", !isDarkMode && "text-slate-950")}>{formatDate(stream.date)}</div>
                             <div className={cn("text-xs", isDarkMode ? "text-slate-500" : "text-slate-600")}>{new Date(stream.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-                          </td>
-                          <td className="px-8 py-6">
-                            <span className={cn(
-                              "px-3 py-1 rounded-full text-xs font-semibold border",
-                              isDarkMode 
-                                ? "bg-violet-500/10 text-violet-400 border-violet-500/20" 
-                                : "bg-violet-50 text-violet-600 border-violet-200"
-                            )}>
-                              {stream.game}
-                            </span>
                           </td>
                           <td className={cn("px-8 py-6", isDarkMode ? "text-slate-300" : "text-slate-700")}>
                             {Math.floor(stream.durationMinutes / 60)}h {stream.durationMinutes % 60}m

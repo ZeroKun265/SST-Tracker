@@ -123,13 +123,6 @@ def calculate_stats():
         # Get delay from Discord (or 0 if disabled)
         delay = get_discord_delay(start_time)
         
-        # Try to detect game from title if possible, otherwise use title or default
-        # Many streamers put the game in the title or Twitch sets it.
-        # Since helix/videos doesn't have game_id, we use the title as a proxy for the 'stream info'
-        game_name = video['title'].split('|')[0].strip() if '|' in video['title'] else video['title']
-        if len(game_name) > 30:
-            game_name = game_name[:27] + "..."
-
         if date_str not in daily_streams:
             daily_streams[date_str] = {
                 "id": video['id'],
@@ -137,7 +130,6 @@ def calculate_stats():
                 "startTime": video['created_at'],
                 "endTime": (start_time + timedelta(minutes=duration_minutes)).isoformat() + "Z",
                 "durationMinutes": duration_minutes,
-                "game": game_name,
                 "announcedTime": (start_time - timedelta(minutes=delay)).isoformat() + "Z",
                 "delayMinutes": delay,
                 "raw_start": start_time
@@ -156,9 +148,6 @@ def calculate_stats():
                 existing["raw_start"] = start_time
                 existing["startTime"] = video['created_at']
                 existing["announcedTime"] = (start_time - timedelta(minutes=delay)).isoformat() + "Z"
-            
-            # If games are different, maybe list them? For now just keep the first one found or longest?
-            # Let's just keep the one from the longest stream or first one.
     
     # Convert back to list and sort by date descending
     streams_data = sorted(daily_streams.values(), key=lambda x: x['date'], reverse=True)
@@ -173,13 +162,6 @@ def calculate_stats():
     total_delay = sum(s['delayMinutes'] for s in streams_data)
     avg_delay = total_delay / len(streams_data) if streams_data else 0
     
-    # Calculate most played game
-    game_counts = {}
-    for s in streams_data:
-        g = s['game']
-        game_counts[g] = game_counts.get(g, 0) + 1
-    most_played = max(game_counts, key=game_counts.get) if game_counts else "Just Chatting"
-
     output = {
         "lastUpdated": datetime.utcnow().isoformat() + "Z",
         "streamer": STREAMER_NAME,
@@ -187,7 +169,6 @@ def calculate_stats():
         "stats": {
             "averageDelay": round(avg_delay, 1),
             "totalStreamTime": sum(s['durationMinutes'] for s in streams_data),
-            "mostPlayedGame": most_played,
             "longestDelay": max(s['delayMinutes'] for s in streams_data) if streams_data else 0,
             "shortestDelay": min(s['delayMinutes'] for s in streams_data) if streams_data else 0
         }
