@@ -12,4 +12,9 @@
     git commit -m "Build for deployment"
     git push origin main
     ```
+3. **Data insertion:** Use the following scripts to first fetch the new twitch data and then manually insert the delays
+    ```
+    python sst_tracker.py 
+    python manual_delay_editor.py
+    ```
 
