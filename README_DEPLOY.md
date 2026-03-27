@@ -29,4 +29,5 @@ I have updated the project to use the **`docs/`** folder for deployment, which i
 - **Base Path**: I have set `base: './'` in `vite.config.ts` to ensure assets load correctly.
 - **Output Directory**: I have configured Vite to output to `docs/` instead of `dist/`.
 - **Data Updates**: Remember to push your updated `stats.json` inside the `public/` folder whenever you run the Python tracker!
+- **Manual Delays**: I have added `manual_delay_editor.py`. Run this script after the main tracker to manually input delay values for any new streams.
 - **Build After Changes**: Every time I (the AI) make changes to the source code, you will need to pull the changes locally and run `npm run build` again to update the `docs` folder for deployment.

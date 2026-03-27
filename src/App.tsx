@@ -76,6 +76,30 @@ export default function App() {
   const [sortConfig, setSortConfig] = useState<{ key: keyof Stream; direction: 'asc' | 'desc' }>({ key: 'date', direction: 'desc' });
   const [dataset, setDataset] = useState<'stats.json' | 'demo_stats.json'>('stats.json');
   const [showPopup, setShowPopup] = useState<string | null>(null);
+  const [showWarnTooltip, setShowWarnTooltip] = useState(false);
+  const warnRef = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (warnRef.current && !warnRef.current.contains(event.target as Node)) {
+        setShowWarnTooltip(false);
+      }
+    };
+
+    const handleScroll = () => {
+      setShowWarnTooltip(false);
+    };
+
+    if (showWarnTooltip) {
+      document.addEventListener('mousedown', handleClickOutside);
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [showWarnTooltip]);
 
   useEffect(() => {
     setLoading(true);
@@ -273,23 +297,21 @@ export default function App() {
       </AnimatePresence>
 
       {/* Background Blurs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-violet-600/20 blur-[120px] rounded-full" />
         <div className="absolute top-[60%] -right-[10%] w-[30%] h-[30%] bg-purple-600/10 blur-[100px] rounded-full" />
       </div>
 
       <nav className={cn(
-        "sticky top-0 z-50 backdrop-blur-md border-b px-6 py-4 transition-colors",
-        isDarkMode ? "border-white/10" : "bg-white/80 border-slate-200"
+        "sticky top-0 z-50 backdrop-blur-md border-b px-4 md:px-6 py-4 transition-colors",
+        isDarkMode ? "border-white/10 bg-slate-950/80" : "bg-white/80 border-slate-200"
       )}>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div 
-            className="flex items-center gap-2 cursor-pointer group"
-            onClick={toggleDataset}
-          >
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-2 group">
             <motion.div
               whileHover={{ rotate: 15 }}
-              className="bg-violet-600 p-2 rounded-xl shadow-lg shadow-violet-600/20 group-hover:scale-110 transition-transform"
+              onClick={toggleDataset}
+              className="bg-violet-600 p-2 rounded-xl shadow-lg shadow-violet-600/20 hover:scale-110 transition-transform cursor-pointer"
             >
               <Clock className="text-white w-6 h-6" />
             </motion.div>
@@ -301,11 +323,18 @@ export default function App() {
                 </span>
               )}
               <div 
+                ref={warnRef}
                 className="group/warn relative"
-                title="Delay is currently not implemented due to lack of discord integration, see Data Policy for more info"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowWarnTooltip(!showWarnTooltip);
+                }}
               >
                 <AlertTriangle className="w-4 h-4 text-amber-500 cursor-help animate-pulse" />
-                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 p-3 rounded-xl bg-slate-900 text-white text-[11px] font-medium leading-relaxed opacity-0 invisible group-hover/warn:opacity-100 group-hover/warn:visible transition-all z-[100] shadow-2xl border border-white/10 text-center">
+                <div className={cn(
+                  "absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 p-3 rounded-xl bg-slate-900 text-white text-[11px] font-medium leading-relaxed transition-all z-[100] shadow-2xl border border-white/10 text-center",
+                  showWarnTooltip ? "opacity-100 visible" : "opacity-0 invisible group-hover/warn:opacity-100 group-hover/warn:visible"
+                )}>
                   Delay is currently not implemented due to lack of discord integration, see Data Policy for more info
                   <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45 border-t border-l border-white/10" />
                 </div>
@@ -314,27 +343,29 @@ export default function App() {
           </div>
 
           {/* Navigation Capsules */}
-          <div className={cn(
-            "flex p-1 border rounded-full backdrop-blur-sm transition-colors",
-            isDarkMode ? "bg-white/5 border-white/10" : "bg-slate-100 border-slate-200"
-          )}>
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
-                  activeTab === tab.id 
-                    ? "bg-violet-600 text-white shadow-lg shadow-violet-600/20" 
-                    : isDarkMode 
-                      ? "text-slate-400 hover:text-white hover:bg-white/5"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-white"
-                )}
-              >
-                <tab.icon className="w-4 h-4" />
-                {tab.label}
-              </button>
-            ))}
+          <div className="w-full lg:w-auto">
+            <div className={cn(
+              "flex flex-wrap lg:flex-nowrap justify-center gap-1.5 lg:gap-0 p-1 lg:border lg:rounded-full backdrop-blur-sm transition-colors",
+              isDarkMode ? "lg:bg-white/5 lg:border-white/10" : "lg:bg-slate-100 lg:border-slate-200"
+            )}>
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={cn(
+                    "flex items-center gap-1.5 lg:gap-2 px-3 lg:px-4 py-1.5 lg:py-2 rounded-full text-[11px] lg:text-sm font-medium transition-all duration-300 whitespace-nowrap border lg:border-0",
+                    activeTab === tab.id 
+                      ? "bg-violet-600 text-white shadow-lg shadow-violet-600/20 border-violet-500" 
+                      : isDarkMode 
+                        ? "text-slate-400 hover:text-white hover:bg-white/5 border-white/5 bg-white/5"
+                        : "text-slate-600 hover:text-slate-900 hover:bg-white border-slate-200 bg-slate-50"
+                  )}
+                >
+                  <tab.icon className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
           
           <div className="flex items-center gap-4">
@@ -348,10 +379,13 @@ export default function App() {
               {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
             <a 
-              href={`https://twitch.tv/${data.streamer}`}
+              href={data ? `https://twitch.tv/${data.streamer}` : "#"}
               target="_blank"
               rel="noreferrer"
-              className="bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all"
+              className={cn(
+                "bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all",
+                !data && "opacity-50 cursor-not-allowed"
+              )}
             >
               Watch Live <ExternalLink className="w-4 h-4" />
             </a>
@@ -940,11 +974,13 @@ export default function App() {
                   </section>
 
                   <section>
-                    <h4 className={cn("text-lg font-semibold mb-2", !isDarkMode ? "text-slate-900" : "text-white")}>Discord Integration</h4>
+                    <h4 className={cn("text-lg font-semibold mb-2", !isDarkMode ? "text-slate-900" : "text-white")}>Discord Integration & Delay Tracking</h4>
                     <p className={isDarkMode ? "text-slate-400" : "text-slate-700"}>
-                      Currently, Discord integration is <strong>not yet implemented</strong>. In the future, we plan to 
-                      cross-reference Twitch start times with Discord announcement timestamps (e.g., "Going live soon!") 
-                      to provide even more accurate "Soon™" delay metrics.
+                      Currently, Discord integration is <strong>not yet implemented</strong>. To provide accurate delay metrics 
+                      in the meantime, we use a <strong>manual insertion process</strong>. For each new stream, the delay 
+                      between the scheduled start and the actual "Live" notification is manually entered into our database. 
+                      In the future, we plan to automate this by cross-referencing Twitch start times with Discord 
+                      announcement timestamps (e.g., "Going live soon!") to provide even more accurate "Soon™" delay metrics.
                     </p>
                   </section>
 
