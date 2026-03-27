@@ -2,11 +2,6 @@ import json
 import os
 from datetime import datetime
 
-def format_duration(seconds):
-    hours = seconds // 3600
-    minutes = (seconds % 3600) // 60
-    return f"{hours}h {minutes}m"
-
 def manual_delay_editor():
     stats_path = os.path.join('public', 'stats.json')
     
@@ -24,15 +19,15 @@ def manual_delay_editor():
     print("Type 'skip' to leave as 0, or 'exit' to save and quit.\n")
 
     for stream in streams:
-        # Check if delay is 0 (missing)
-        if stream.get('delay', 0) == 0:
+        # Check if delayMinutes is 0 (missing)
+        if stream.get('delayMinutes', 0) == 0:
             date_str = stream['date']
-            title = stream['title']
-            duration = format_duration(stream['duration'])
+            stream_id = stream.get('id', 'Unknown ID')
+            duration = stream.get('durationMinutes', 0)
             
-            print(f"Stream: {title}")
-            print(f"Date:   {date_str}")
-            print(f"Length: {duration}")
+            print(f"Stream ID: {stream_id}")
+            print(f"Date:      {date_str}")
+            print(f"Length:    {duration} minutes")
             
             while True:
                 user_input = input("Enter delay in minutes: ").strip().lower()
@@ -50,7 +45,7 @@ def manual_delay_editor():
                 
                 try:
                     delay_min = float(user_input)
-                    stream['delay'] = delay_min
+                    stream['delayMinutes'] = delay_min
                     updated_count += 1
                     print(f"Updated delay to {delay_min}m.\n")
                     break
