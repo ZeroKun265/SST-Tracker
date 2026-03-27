@@ -71,19 +71,29 @@ export default function App() {
   const [timeRange, setTimeRange] = useState<string>('all');
   const [heatmapMode, setHeatmapMode] = useState<'binary' | 'intensity'>('intensity');
   const [sortConfig, setSortConfig] = useState<{ key: keyof Stream; direction: 'asc' | 'desc' }>({ key: 'date', direction: 'desc' });
+  const [dataset, setDataset] = useState<'stats.json' | 'demo_stats.json'>('demo_stats.json');
+  const [showPopup, setShowPopup] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/public/stats.json')
+    setLoading(true);
+    fetch(`/public/${dataset}`)
       .then(res => res.json())
       .then(json => {
         setData(json);
         setLoading(false);
       })
       .catch(err => {
-        console.error("Failed to load stats:", err);
+        console.error(`Failed to load ${dataset}:`, err);
         setLoading(false);
       });
-  }, []);
+  }, [dataset]);
+
+  const toggleDataset = () => {
+    const newDataset = dataset === 'stats.json' ? 'demo_stats.json' : 'stats.json';
+    setDataset(newDataset);
+    setShowPopup(`Now using ${newDataset === 'stats.json' ? 'Live' : 'Demo'} dataset`);
+    setTimeout(() => setShowPopup(null), 3000);
+  };
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -227,6 +237,20 @@ export default function App() {
       "min-h-screen transition-colors duration-500",
       isDarkMode ? "bg-slate-950 text-slate-100" : "bg-white text-slate-900"
     )}>
+      {/* Dataset Popup */}
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, x: '-50%' }}
+            animate={{ opacity: 1, y: 0, x: '-50%' }}
+            exit={{ opacity: 0, y: 50, x: '-50%' }}
+            className="fixed bottom-8 left-1/2 z-[100] px-6 py-3 rounded-2xl bg-violet-600 text-white font-bold shadow-2xl shadow-violet-600/40 border border-violet-400/30 backdrop-blur-md"
+          >
+            {showPopup}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Background Blurs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-violet-600/20 blur-[120px] rounded-full" />
@@ -238,15 +262,19 @@ export default function App() {
         isDarkMode ? "border-white/10" : "bg-white/80 border-slate-200"
       )}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2">
+          <div 
+            className="flex items-center gap-2 cursor-pointer group"
+            onClick={toggleDataset}
+          >
             <motion.div
               whileHover={{ rotate: 15 }}
-              className="bg-violet-600 p-2 rounded-xl"
+              className="bg-violet-600 p-2 rounded-xl shadow-lg shadow-violet-600/20 group-hover:scale-110 transition-transform"
             >
               <Clock className="text-white w-6 h-6" />
             </motion.div>
             <h1 className={cn("text-xl font-bold tracking-tight", !isDarkMode && "text-slate-950")}>
               SST <span className="text-violet-500">Clock</span>
+              {dataset === 'demo_stats.json' && <span className="ml-2 text-[10px] bg-amber-500/20 text-amber-500 px-1.5 py-0.5 rounded uppercase tracking-tighter">Demo</span>}
             </h1>
           </div>
 

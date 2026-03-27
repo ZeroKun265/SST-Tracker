@@ -179,11 +179,11 @@ def calculate_stats():
         os.makedirs('public')
 
     # Write JSON with explicit encoding and no trailing garbage
-    with open('public/stats.json', 'w', encoding='utf-8') as f:
+    with open('public/demo_stats.json', 'w', encoding='utf-8') as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
         f.truncate() # Ensure file is exactly the size of the JSON
     
-    print(f"Stats updated successfully in public/stats.json (Discord Enabled: {DISCORD_ENABLED})")
+    print(f"Stats updated successfully in public/demo_stats.json (Discord Enabled: {DISCORD_ENABLED})")
 
 if __name__ == "__main__":
     calculate_stats()
