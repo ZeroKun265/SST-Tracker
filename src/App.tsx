@@ -79,7 +79,7 @@ export default function App() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/public/${dataset}`)
+    fetch(`./${dataset}`)
       .then(res => res.json())
       .then(json => {
         setData(json);

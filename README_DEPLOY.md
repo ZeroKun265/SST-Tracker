@@ -24,15 +24,9 @@ I have updated the project to use the **`docs/`** folder for deployment, which i
     - Under **Branch**, select **main** and change the folder from `/ (root)` to **`/docs`**.
     - Click **Save**.
 
-## Option 2: GitHub Actions (Automated)
-
-If you prefer the fully automated way (where you don't have to push the `docs` folder manually), I have also updated the `.github/workflows/deploy.yml` to use the `docs` folder.
-
-1.  Go to **Settings** > **Pages**.
-2.  Under **Build and deployment** > **Source**, select **GitHub Actions**.
-
 ## Important Notes
 
 - **Base Path**: I have set `base: './'` in `vite.config.ts` to ensure assets load correctly.
 - **Output Directory**: I have configured Vite to output to `docs/` instead of `dist/`.
 - **Data Updates**: Remember to push your updated `stats.json` inside the `public/` folder whenever you run the Python tracker!
+- **Build After Changes**: Every time I (the AI) make changes to the source code, you will need to pull the changes locally and run `npm run build` again to update the `docs` folder for deployment.
