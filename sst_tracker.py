@@ -204,7 +204,7 @@ def calculate_stats():
                 if current_end > existing_end:
                     existing["endTime"] = current_end.isoformat() + "Z"
                 
-                existing_start = datetime.strptime(existing["startTime"].replace('Z', ''), "%Y-%m-%dT%H:%M:%SZ")
+                existing_start = datetime.strptime(existing["startTime"].replace('Z', ''), "%Y-%m-%dT%H:%M:%S")
                 if start_time < existing_start:
                     existing["startTime"] = video['created_at']
                     existing["announcedTime"] = (start_time - timedelta(minutes=delay)).isoformat() + "Z"
