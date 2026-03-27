@@ -1,133 +1,213 @@
 {
-  "lastUpdated": "2026-03-27T11:27:06Z",
+  "lastUpdated": "2026-03-27T12:18:53.304847Z",
   "streamer": "omenkitty12",
   "streams": [
     {
-      "id": "1",
-      "date": "2026-03-20",
-      "startTime": "2026-03-20T19:00:00Z",
-      "endTime": "2026-03-20T23:30:00Z",
-      "durationMinutes": 270,
-      "game": "Just Chatting",
-      "announcedTime": "2026-03-20T18:30:00Z",
-      "delayMinutes": 30
-    },
-    {
-      "id": "2",
-      "date": "2026-03-22",
-      "startTime": "2026-03-22T20:15:00Z",
-      "endTime": "2026-03-23T01:00:00Z",
-      "durationMinutes": 285,
-      "game": "Valorant",
-      "announcedTime": "2026-03-22T19:45:00Z",
-      "delayMinutes": 30
-    },
-    {
-      "id": "3",
-      "date": "2026-03-24",
-      "startTime": "2026-03-24T19:45:00Z",
-      "endTime": "2026-03-24T22:15:00Z",
-      "durationMinutes": 150,
-      "game": "Just Chatting",
-      "announcedTime": "2026-03-24T19:00:00Z",
-      "delayMinutes": 45
-    },
-    {
-      "id": "4",
-      "date": "2026-03-25",
-      "startTime": "2026-03-25T18:10:00Z",
-      "endTime": "2026-03-25T23:45:00Z",
-      "durationMinutes": 335,
-      "game": "Minecraft",
-      "announcedTime": "2026-03-25T18:00:00Z",
-      "delayMinutes": 10
-    },
-    {
-      "id": "5",
+      "id": "2732362504",
       "date": "2026-03-26",
-      "startTime": "2026-03-26T21:00:00Z",
-      "endTime": "2026-03-27T02:30:00Z",
-      "durationMinutes": 330,
+      "startTime": "2026-03-26T18:30:45Z",
+      "endTime": "2026-03-26T20:47:45Z",
+      "durationMinutes": 137,
       "game": "Just Chatting",
-      "announcedTime": "2026-03-26T20:00:00Z",
-      "delayMinutes": 60
+      "announcedTime": "2026-03-26T18:30:45Z",
+      "delayMinutes": 0
     },
     {
-      "id": "6",
-      "date": "2026-03-18",
-      "startTime": "2026-03-18T19:00:00Z",
-      "endTime": "2026-03-18T23:00:00Z",
-      "durationMinutes": 240,
-      "game": "Valorant",
-      "announcedTime": "2026-03-18T18:45:00Z",
-      "delayMinutes": 15
-    },
-    {
-      "id": "7",
-      "date": "2026-03-15",
-      "startTime": "2026-03-15T20:00:00Z",
-      "endTime": "2026-03-16T01:00:00Z",
-      "durationMinutes": 300,
+      "id": "2730718052",
+      "date": "2026-03-24",
+      "startTime": "2026-03-24T18:13:27Z",
+      "endTime": "2026-03-24T20:13:27Z",
+      "durationMinutes": 120,
       "game": "Just Chatting",
-      "announcedTime": "2026-03-15T19:30:00Z",
-      "delayMinutes": 30
+      "announcedTime": "2026-03-24T18:13:27Z",
+      "delayMinutes": 0
     },
     {
-      "id": "8",
-      "date": "2026-03-12",
-      "startTime": "2026-03-12T18:30:00Z",
-      "endTime": "2026-03-12T22:30:00Z",
-      "durationMinutes": 240,
-      "game": "Minecraft",
-      "announcedTime": "2026-03-12T18:00:00Z",
-      "delayMinutes": 30
-    },
-    {
-      "id": "9",
-      "date": "2026-03-10",
-      "startTime": "2026-03-10T21:00:00Z",
-      "endTime": "2026-03-11T02:00:00Z",
-      "durationMinutes": 300,
+      "id": "2728337022",
+      "date": "2026-03-21",
+      "startTime": "2026-03-21T20:21:50Z",
+      "endTime": "2026-03-21T23:31:50Z",
+      "durationMinutes": 190,
       "game": "Just Chatting",
-      "announcedTime": "2026-03-10T20:45:00Z",
-      "delayMinutes": 15
+      "announcedTime": "2026-03-21T20:21:50Z",
+      "delayMinutes": 0
     },
     {
-      "id": "10",
-      "date": "2026-03-08",
-      "startTime": "2026-03-08T19:00:00Z",
-      "endTime": "2026-03-08T23:00:00Z",
-      "durationMinutes": 240,
-      "game": "Valorant",
-      "announcedTime": "2026-03-08T18:30:00Z",
-      "delayMinutes": 30
-    },
-    {
-      "id": "11",
-      "date": "2026-03-05",
-      "startTime": "2026-03-05T20:00:00Z",
-      "endTime": "2026-03-06T01:00:00Z",
-      "durationMinutes": 300,
+      "id": "2726361889",
+      "date": "2026-03-19",
+      "startTime": "2026-03-19T15:26:59Z",
+      "endTime": "2026-03-19T17:36:59Z",
+      "durationMinutes": 130,
       "game": "Just Chatting",
-      "announcedTime": "2026-03-05T19:15:00Z",
-      "delayMinutes": 45
+      "announcedTime": "2026-03-19T15:26:59Z",
+      "delayMinutes": 0
     },
     {
-      "id": "12",
+      "id": "2723948458",
+      "date": "2026-03-16",
+      "startTime": "2026-03-16T16:53:20Z",
+      "endTime": "2026-03-16T18:59:20Z",
+      "durationMinutes": 126,
+      "game": "Just Chatting",
+      "announcedTime": "2026-03-16T16:53:20Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2723936502",
+      "date": "2026-03-16",
+      "startTime": "2026-03-16T16:34:21Z",
+      "endTime": "2026-03-16T16:49:21Z",
+      "durationMinutes": 15,
+      "game": "Just Chatting",
+      "announcedTime": "2026-03-16T16:34:21Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2721480243",
+      "date": "2026-03-13",
+      "startTime": "2026-03-13T19:59:21Z",
+      "endTime": "2026-03-13T22:14:21Z",
+      "durationMinutes": 135,
+      "game": "Just Chatting",
+      "announcedTime": "2026-03-13T19:59:21Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2719657378",
+      "date": "2026-03-11",
+      "startTime": "2026-03-11T16:36:02Z",
+      "endTime": "2026-03-11T18:20:02Z",
+      "durationMinutes": 104,
+      "game": "Just Chatting",
+      "announcedTime": "2026-03-11T16:36:02Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2718015611",
+      "date": "2026-03-09",
+      "startTime": "2026-03-09T16:20:47Z",
+      "endTime": "2026-03-09T18:21:47Z",
+      "durationMinutes": 121,
+      "game": "Just Chatting",
+      "announcedTime": "2026-03-09T16:20:47Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2715548068",
+      "date": "2026-03-06",
+      "startTime": "2026-03-06T20:44:01Z",
+      "endTime": "2026-03-06T22:50:01Z",
+      "durationMinutes": 126,
+      "game": "Just Chatting",
+      "announcedTime": "2026-03-06T20:44:01Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2713701829",
+      "date": "2026-03-04",
+      "startTime": "2026-03-04T17:53:49Z",
+      "endTime": "2026-03-04T20:11:49Z",
+      "durationMinutes": 138,
+      "game": "Just Chatting",
+      "announcedTime": "2026-03-04T17:53:49Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2712151192",
       "date": "2026-03-02",
-      "startTime": "2026-03-02T18:00:00Z",
-      "endTime": "2026-03-02T22:00:00Z",
-      "durationMinutes": 240,
-      "game": "Minecraft",
-      "announcedTime": "2026-03-02T17:45:00Z",
-      "delayMinutes": 15
+      "startTime": "2026-03-02T21:06:55Z",
+      "endTime": "2026-03-02T22:32:55Z",
+      "durationMinutes": 86,
+      "game": "Just Chatting",
+      "announcedTime": "2026-03-02T21:06:55Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2709178600",
+      "date": "2026-02-27",
+      "startTime": "2026-02-27T17:04:21Z",
+      "endTime": "2026-02-27T17:46:21Z",
+      "durationMinutes": 42,
+      "game": "Just Chatting",
+      "announcedTime": "2026-02-27T17:04:21Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2709168627",
+      "date": "2026-02-27",
+      "startTime": "2026-02-27T16:53:42Z",
+      "endTime": "2026-02-27T16:53:42Z",
+      "durationMinutes": 0,
+      "game": "Just Chatting",
+      "announcedTime": "2026-02-27T16:53:42Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2709167150",
+      "date": "2026-02-27",
+      "startTime": "2026-02-27T16:51:39Z",
+      "endTime": "2026-02-27T16:51:39Z",
+      "durationMinutes": 0,
+      "game": "Just Chatting",
+      "announcedTime": "2026-02-27T16:51:39Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2709164503",
+      "date": "2026-02-27",
+      "startTime": "2026-02-27T16:47:54Z",
+      "endTime": "2026-02-27T16:49:54Z",
+      "durationMinutes": 2,
+      "game": "Just Chatting",
+      "announcedTime": "2026-02-27T16:47:54Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2709163873",
+      "date": "2026-02-27",
+      "startTime": "2026-02-27T16:46:56Z",
+      "endTime": "2026-02-27T16:46:56Z",
+      "durationMinutes": 0,
+      "game": "Just Chatting",
+      "announcedTime": "2026-02-27T16:46:56Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2709115749",
+      "date": "2026-02-27",
+      "startTime": "2026-02-27T15:37:36Z",
+      "endTime": "2026-02-27T16:45:36Z",
+      "durationMinutes": 68,
+      "game": "Just Chatting",
+      "announcedTime": "2026-02-27T15:37:36Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2707678815",
+      "date": "2026-02-25",
+      "startTime": "2026-02-25T22:44:10Z",
+      "endTime": "2026-02-25T22:48:10Z",
+      "durationMinutes": 4,
+      "game": "Just Chatting",
+      "announcedTime": "2026-02-25T22:44:10Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2707677711",
+      "date": "2026-02-25",
+      "startTime": "2026-02-25T22:42:29Z",
+      "endTime": "2026-02-25T22:42:29Z",
+      "durationMinutes": 0,
+      "game": "Just Chatting",
+      "announcedTime": "2026-02-25T22:42:29Z",
+      "delayMinutes": 0
     }
   ],
   "stats": {
-    "averageDelay": 35,
-    "totalStreamTime": 1370,
+    "averageDelay": 0.0,
+    "totalStreamTime": 1544,
     "mostPlayedGame": "Just Chatting",
-    "longestDelay": 60,
-    "shortestDelay": 10
+    "longestDelay": 0,
+    "shortestDelay": 0
   }
 }
