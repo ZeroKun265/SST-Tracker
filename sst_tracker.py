@@ -122,50 +122,16 @@ def parse_duration(duration_str):
         seconds = int(parts[0])
     return hours * 60 + minutes + (1 if seconds > 30 else 0)
 
-def calculate_stats():
-    # 1. Setup and Auth
-    token = get_twitch_token()
-    if not token:
-        return
-
-    user_id = get_streamer_id(token)
-    if not user_id:
-        print(f"Error: Could not find streamer {STREAMER_NAME}")
-        return
-
-    # 2. User Prompts
-    use_demo = input("Write to demo_stats.json? (y/N, default: No): ").lower().strip()
-    filename = 'demo_stats.json' if use_demo in ['y', 'yes'] else 'stats.json'
-    filepath = os.path.join('public', filename)
-
-    fetch_mode = input("Fetch all historical VODs? (y/N, default: Latest 100): ").lower().strip()
-    fetch_all = fetch_mode in ['y', 'yes']
-
-    # 3. Load Existing Data (to handle deleted VODs)
-    existing_data = {"streams": [], "stats": {}}
-    if os.path.exists(filepath):
-        try:
-            with open(filepath, 'r', encoding='utf-8') as f:
-                existing_data = json.load(f)
-                print(f"Loaded {len(existing_data.get('streams', []))} existing daily entries from {filepath}")
-        except Exception as e:
-            print(f"Warning: Could not load existing data: {e}")
-
+def process_and_merge(new_videos, existing_streams):
     # Map existing streams by date for easy merging
-    # We also need to keep track of which VOD IDs we already have
-    daily_streams = {s['date']: s for s in existing_data.get('streams', [])}
+    daily_streams = {s['date']: s for s in existing_streams}
     known_vod_ids = set()
     for s in daily_streams.values():
         if 'vod_ids' in s:
             known_vod_ids.update(s['vod_ids'])
         else:
-            # Legacy support: add the main ID
             known_vod_ids.add(s['id'])
 
-    # 4. Fetch from Twitch
-    new_videos = get_past_streams(token, user_id, fetch_all=fetch_all)
-    
-    # 5. Process and Merge
     new_count = 0
     for video in new_videos:
         if video['id'] in known_vod_ids:
@@ -208,11 +174,47 @@ def calculate_stats():
                 if start_time < existing_start:
                     existing["startTime"] = video['created_at']
                     existing["announcedTime"] = (start_time - timedelta(minutes=delay)).isoformat() + "Z"
+    
+    return list(daily_streams.values()), new_count
 
+def calculate_stats():
+    # 1. Setup and Auth
+    token = get_twitch_token()
+    if not token:
+        return
+
+    user_id = get_streamer_id(token)
+    if not user_id:
+        print(f"Error: Could not find streamer {STREAMER_NAME}")
+        return
+
+    # 2. User Prompts
+    use_demo = input("Write to demo_stats.json? (y/N, default: No): ").lower().strip()
+    filename = 'demo_stats.json' if use_demo in ['y', 'yes'] else 'stats.json'
+    filepath = os.path.join('public', filename)
+
+    fetch_mode = input("Fetch all historical VODs? (y/N, default: Latest 100): ").lower().strip()
+    fetch_all = fetch_mode in ['y', 'yes']
+
+    # 3. Load Existing Data
+    existing_data = {"streams": [], "stats": {}}
+    if os.path.exists(filepath):
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                existing_data = json.load(f)
+                print(f"Loaded {len(existing_data.get('streams', []))} existing daily entries from {filepath}")
+        except Exception as e:
+            print(f"Warning: Could not load existing data: {e}")
+
+    # 4. Fetch from Twitch
+    new_videos = get_past_streams(token, user_id, fetch_all=fetch_all)
+    
+    # 5. Process and Merge
+    merged_streams, new_count = process_and_merge(new_videos, existing_data.get('streams', []))
     print(f"Processed {new_count} new VODs from Twitch.")
 
     # 6. Finalize and Save
-    streams_data = sorted(daily_streams.values(), key=lambda x: x['date'], reverse=True)
+    streams_data = sorted(merged_streams, key=lambda x: x['date'], reverse=True)
     
     # Recalculate Stats
     total_delay = sum(s['delayMinutes'] for s in streams_data)

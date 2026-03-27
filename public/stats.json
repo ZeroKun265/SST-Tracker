@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-27T12:54:47.052672Z",
+  "lastUpdated": "2026-03-27T13:07:44.222355Z",
   "streamer": "omenkitty12",
   "streams": [
     {
@@ -43,9 +43,13 @@
       "date": "2026-03-16",
       "startTime": "2026-03-16T16:34:21Z",
       "endTime": "2026-03-16T19:00:20Z",
-      "durationMinutes": 142,
+      "durationMinutes": 157,
       "announcedTime": "2026-03-16T16:34:21Z",
-      "delayMinutes": 0
+      "delayMinutes": 0,
+      "vod_ids": [
+        "2723948458",
+        "2723936502"
+      ]
     },
     {
       "id": "2721480243",
@@ -106,23 +110,174 @@
       "date": "2026-02-27",
       "startTime": "2026-02-27T15:37:36Z",
       "endTime": "2026-02-27T17:46:21Z",
-      "durationMinutes": 112,
+      "durationMinutes": 182,
       "announcedTime": "2026-02-27T15:37:36Z",
-      "delayMinutes": 0
+      "delayMinutes": 0,
+      "vod_ids": [
+        "2709178600",
+        "2709168627",
+        "2709167150",
+        "2709164503",
+        "2709163873",
+        "2709115749"
+      ]
     },
     {
       "id": "2707678815",
       "date": "2026-02-25",
-      "startTime": "2026-02-25T22:42:29Z",
+      "startTime": "2026-02-25T21:12:57Z",
       "endTime": "2026-02-25T22:49:10Z",
-      "durationMinutes": 6,
-      "announcedTime": "2026-02-25T22:42:29Z",
+      "durationMinutes": 96,
+      "announcedTime": "2026-02-25T21:12:57Z",
+      "delayMinutes": 0,
+      "vod_ids": [
+        "2707678815",
+        "2707677711",
+        "2707615920"
+      ]
+    },
+    {
+      "id": "2702182021",
+      "vod_ids": [
+        "2702182021"
+      ],
+      "date": "2026-02-19",
+      "startTime": "2026-02-19T19:08:33Z",
+      "endTime": "2026-02-19T20:14:33Z",
+      "durationMinutes": 66,
+      "announcedTime": "2026-02-19T19:08:33Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2700674533",
+      "vod_ids": [
+        "2700674533",
+        "2700667787",
+        "2700666429"
+      ],
+      "date": "2026-02-17",
+      "startTime": "2026-02-17T23:45:05Z",
+      "endTime": "2026-02-18T01:52:48Z",
+      "durationMinutes": 125,
+      "announcedTime": "2026-02-17T23:45:05Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2695182110",
+      "vod_ids": [
+        "2695182110"
+      ],
+      "date": "2026-02-11",
+      "startTime": "2026-02-11T20:00:38Z",
+      "endTime": "2026-02-11T22:03:38Z",
+      "durationMinutes": 123,
+      "announcedTime": "2026-02-11T20:00:38Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2693469392",
+      "vod_ids": [
+        "2693469392",
+        "2693403191"
+      ],
+      "date": "2026-02-09",
+      "startTime": "2026-02-09T18:47:27Z",
+      "endTime": "2026-02-09T21:10:30Z",
+      "durationMinutes": 143,
+      "announcedTime": "2026-02-09T18:47:27Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2691055172",
+      "vod_ids": [
+        "2691055172",
+        "2691002261",
+        "2690989819"
+      ],
+      "date": "2026-02-07",
+      "startTime": "2026-02-07T00:17:48Z",
+      "endTime": "2026-02-07T01:59:16Z",
+      "durationMinutes": 100,
+      "announcedTime": "2026-02-07T00:17:48Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2689941061",
+      "vod_ids": [
+        "2689941061"
+      ],
+      "date": "2026-02-05",
+      "startTime": "2026-02-05T20:43:55Z",
+      "endTime": "2026-02-05T23:21:55Z",
+      "durationMinutes": 158,
+      "announcedTime": "2026-02-05T20:43:55Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2688168727",
+      "vod_ids": [
+        "2688168727"
+      ],
+      "date": "2026-02-03",
+      "startTime": "2026-02-03T19:35:49Z",
+      "endTime": "2026-02-03T21:23:49Z",
+      "durationMinutes": 108,
+      "announcedTime": "2026-02-03T19:35:49Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2686479620",
+      "vod_ids": [
+        "2686479620"
+      ],
+      "date": "2026-02-01",
+      "startTime": "2026-02-01T19:55:09Z",
+      "endTime": "2026-02-01T21:34:09Z",
+      "durationMinutes": 99,
+      "announcedTime": "2026-02-01T19:55:09Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2684525298",
+      "vod_ids": [
+        "2684525298"
+      ],
+      "date": "2026-01-30",
+      "startTime": "2026-01-30T19:43:34Z",
+      "endTime": "2026-01-30T23:13:34Z",
+      "durationMinutes": 210,
+      "announcedTime": "2026-01-30T19:43:34Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2681732683",
+      "vod_ids": [
+        "2681732683",
+        "2681646218"
+      ],
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T14:35:10Z",
+      "endTime": "2026-01-27T18:21:18Z",
+      "durationMinutes": 225,
+      "announcedTime": "2026-01-27T14:35:10Z",
+      "delayMinutes": 0
+    },
+    {
+      "id": "2680961673",
+      "vod_ids": [
+        "2680961673"
+      ],
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T19:26:26Z",
+      "endTime": "2026-01-26T21:42:26Z",
+      "durationMinutes": 136,
+      "announcedTime": "2026-01-26T19:26:26Z",
       "delayMinutes": 0
     }
   ],
   "stats": {
     "averageDelay": 0.0,
-    "totalStreamTime": 1552,
+    "totalStreamTime": 3220,
     "longestDelay": 0,
     "shortestDelay": 0
   }
