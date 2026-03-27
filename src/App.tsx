@@ -72,6 +72,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'home' | 'delay' | 'info' | 'visual'>('home');
   const [timeRange, setTimeRange] = useState<string>('all');
   const [heatmapMode, setHeatmapMode] = useState<'binary' | 'intensity'>('intensity');
+  const [sortConfig, setSortConfig] = useState<{ key: keyof Stream; direction: 'asc' | 'desc' }>({ key: 'date', direction: 'desc' });
 
   useEffect(() => {
     fetch('/public/stats.json')
@@ -117,19 +118,47 @@ export default function App() {
     return [...data.streams]
       .filter(s => new Date(s.date) >= cutoffDate)
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-      .map(s => ({
-        name: new Date(s.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-        delay: s.delayMinutes,
-        duration: s.durationMinutes,
-        fullDate: s.date
-      }));
+      .map(s => {
+        const d = new Date(s.date);
+        return {
+          name: `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}`,
+          delay: s.delayMinutes,
+          duration: s.durationMinutes,
+          fullDate: s.date
+        };
+      });
   }, [data, timeRange]);
 
   const sortedStreams = useMemo(() => {
     if (!data) return [];
-    // Sort by date descending for table
-    return [...data.streams].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }, [data]);
+    
+    return [...data.streams].sort((a, b) => {
+      let aValue = a[sortConfig.key];
+      let bValue = b[sortConfig.key];
+
+      if (sortConfig.key === 'date' || sortConfig.key === 'startTime') {
+        aValue = new Date(aValue as string).getTime();
+        bValue = new Date(bValue as string).getTime();
+      }
+
+      if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }, [data, sortConfig]);
+
+  const requestSort = (key: keyof Stream) => {
+    let direction: 'asc' | 'desc' = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const formatDate = (dateStr: string) => {
+    const d = new Date(dateStr);
+    return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
+  };
 
   if (loading) {
     return (
@@ -299,7 +328,7 @@ export default function App() {
                       </div>
                       <div className="px-4 py-2 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center gap-2">
                         <History className="w-4 h-4 text-blue-400" />
-                        <span className={cn("text-sm font-medium", !isDarkMode && "text-blue-700")}>Last Updated: {new Date(data.lastUpdated).toLocaleDateString()}</span>
+                        <span className={cn("text-sm font-medium", !isDarkMode && "text-blue-700")}>Last Updated: {formatDate(data.lastUpdated)}</span>
                       </div>
                     </div>
                   </div>
@@ -426,7 +455,7 @@ export default function App() {
                                 "w-3.5 h-3.5 rounded-sm cursor-help transition-colors",
                                 color
                               )}
-                              title={stream ? `${dateStr}: ${stream.delayMinutes}m delay (${stream.game})` : dateStr}
+                              title={stream ? `${formatDate(dateStr)}: ${stream.delayMinutes}m delay (${stream.game})` : formatDate(dateStr)}
                             />
                           );
                         })}
@@ -520,7 +549,7 @@ export default function App() {
                                 "px-3 py-2 rounded-lg border text-xs font-bold shadow-xl",
                                 isDarkMode ? "bg-slate-900 border-white/10 text-white" : "bg-white border-slate-200 text-slate-900"
                               )}>
-                                {new Date(stream.date).toLocaleDateString()}: +{stream.delayMinutes}m
+                                {formatDate(stream.date)}: +{stream.delayMinutes}m
                                 <div className="text-[10px] font-normal opacity-60">{stream.game}</div>
                               </div>
                             </div>
@@ -714,10 +743,38 @@ export default function App() {
                         "text-sm border-b",
                         isDarkMode ? "text-slate-400 border-white/5" : "text-slate-600 border-slate-200 bg-slate-100/30"
                       )}>
-                        <th className="px-8 py-4 font-semibold">Date</th>
-                        <th className="px-8 py-4 font-semibold">Game</th>
-                        <th className="px-8 py-4 font-semibold">Duration</th>
-                        <th className="px-8 py-4 font-semibold">Delay (SST)</th>
+                        <th 
+                          className="px-8 py-4 font-semibold cursor-pointer hover:text-violet-500 transition-colors"
+                          onClick={() => requestSort('date')}
+                        >
+                          <div className="flex items-center gap-1">
+                            Date {sortConfig.key === 'date' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                          </div>
+                        </th>
+                        <th 
+                          className="px-8 py-4 font-semibold cursor-pointer hover:text-violet-500 transition-colors"
+                          onClick={() => requestSort('game')}
+                        >
+                          <div className="flex items-center gap-1">
+                            Game {sortConfig.key === 'game' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                          </div>
+                        </th>
+                        <th 
+                          className="px-8 py-4 font-semibold cursor-pointer hover:text-violet-500 transition-colors"
+                          onClick={() => requestSort('durationMinutes')}
+                        >
+                          <div className="flex items-center gap-1">
+                            Duration {sortConfig.key === 'durationMinutes' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                          </div>
+                        </th>
+                        <th 
+                          className="px-8 py-4 font-semibold cursor-pointer hover:text-violet-500 transition-colors"
+                          onClick={() => requestSort('delayMinutes')}
+                        >
+                          <div className="flex items-center gap-1">
+                            Delay (SST) {sortConfig.key === 'delayMinutes' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                          </div>
+                        </th>
                       </tr>
                     </thead>
                     <tbody className={cn(
@@ -730,7 +787,7 @@ export default function App() {
                           isDarkMode ? "hover:bg-white/5" : "hover:bg-slate-100/50"
                         )}>
                           <td className="px-8 py-6">
-                            <div className={cn("font-semibold", !isDarkMode && "text-slate-950")}>{new Date(stream.date).toLocaleDateString()}</div>
+                            <div className={cn("font-semibold", !isDarkMode && "text-slate-950")}>{formatDate(stream.date)}</div>
                             <div className={cn("text-xs", isDarkMode ? "text-slate-500" : "text-slate-600")}>{new Date(stream.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                           </td>
                           <td className="px-8 py-6">

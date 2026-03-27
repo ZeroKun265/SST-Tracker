@@ -92,43 +92,94 @@ def calculate_stats():
 
     videos = get_past_streams(token, user_id)
     
-    streams_data = []
-    total_delay = 0
+    # Group streams by date to aggregate duration
+    daily_streams = {}
     
-    # Process the last 20 streams for the tower and heatmap
-    for video in videos[:20]:
+    # Process the last 40 videos to ensure we have enough data after aggregation
+    for video in videos[:40]:
         start_time = datetime.strptime(video['created_at'], "%Y-%m-%dT%H:%M:%SZ")
+        date_str = start_time.strftime("%Y-%m-%d")
         duration_str = video['duration']
         
         # Parse duration (e.g., 4h20m15s)
         hours = 0
         minutes = 0
+        seconds = 0
         temp_dur = duration_str
         if 'h' in temp_dur:
-            hours = int(temp_dur.split('h')[0])
-            temp_dur = temp_dur.split('h')[1]
+            parts = temp_dur.split('h')
+            hours = int(parts[0])
+            temp_dur = parts[1]
         if 'm' in temp_dur:
-            minutes = int(temp_dur.split('m')[0])
+            parts = temp_dur.split('m')
+            minutes = int(parts[0])
+            temp_dur = parts[1]
+        if 's' in temp_dur:
+            parts = temp_dur.split('s')
+            seconds = int(parts[0])
         
-        duration_minutes = hours * 60 + minutes
+        duration_minutes = hours * 60 + minutes + (1 if seconds > 30 else 0)
         
         # Get delay from Discord (or 0 if disabled)
         delay = get_discord_delay(start_time)
         
-        streams_data.append({
-            "id": video['id'],
-            "date": start_time.strftime("%Y-%m-%d"),
-            "startTime": video['created_at'],
-            "endTime": (start_time + timedelta(minutes=duration_minutes)).isoformat() + "Z",
-            "durationMinutes": duration_minutes,
-            "game": video.get('description', 'Just Chatting')[:20] or "Just Chatting",
-            "announcedTime": (start_time - timedelta(minutes=delay)).isoformat() + "Z",
-            "delayMinutes": delay
-        })
-        total_delay += delay
+        # Try to detect game from title if possible, otherwise use title or default
+        # Many streamers put the game in the title or Twitch sets it.
+        # Since helix/videos doesn't have game_id, we use the title as a proxy for the 'stream info'
+        game_name = video['title'].split('|')[0].strip() if '|' in video['title'] else video['title']
+        if len(game_name) > 30:
+            game_name = game_name[:27] + "..."
 
+        if date_str not in daily_streams:
+            daily_streams[date_str] = {
+                "id": video['id'],
+                "date": date_str,
+                "startTime": video['created_at'],
+                "endTime": (start_time + timedelta(minutes=duration_minutes)).isoformat() + "Z",
+                "durationMinutes": duration_minutes,
+                "game": game_name,
+                "announcedTime": (start_time - timedelta(minutes=delay)).isoformat() + "Z",
+                "delayMinutes": delay,
+                "raw_start": start_time
+            }
+        else:
+            # Aggregate
+            existing = daily_streams[date_str]
+            existing["durationMinutes"] += duration_minutes
+            # Update end time if this stream ended later
+            current_end = start_time + timedelta(minutes=duration_minutes)
+            existing_end = datetime.strptime(existing["endTime"].replace('Z', ''), "%Y-%m-%dT%H:%M:%S")
+            if current_end > existing_end:
+                existing["endTime"] = current_end.isoformat() + "Z"
+            # Update start time if this stream started earlier
+            if start_time < existing["raw_start"]:
+                existing["raw_start"] = start_time
+                existing["startTime"] = video['created_at']
+                existing["announcedTime"] = (start_time - timedelta(minutes=delay)).isoformat() + "Z"
+            
+            # If games are different, maybe list them? For now just keep the first one found or longest?
+            # Let's just keep the one from the longest stream or first one.
+    
+    # Convert back to list and sort by date descending
+    streams_data = sorted(daily_streams.values(), key=lambda x: x['date'], reverse=True)
+    # Remove the helper raw_start
+    for s in streams_data:
+        if 'raw_start' in s:
+            del s['raw_start']
+
+    # Limit to last 30 days/entries for the UI
+    streams_data = streams_data[:30]
+    
+    total_delay = sum(s['delayMinutes'] for s in streams_data)
     avg_delay = total_delay / len(streams_data) if streams_data else 0
     
+    # Calculate most played game
+    game_counts = {}
+    for s in streams_data:
+        g = s['game']
+        game_counts[g] = game_counts.get(g, 0) + 1
+    most_played = max(game_counts, key=game_counts.get) if game_counts else "Just Chatting"
+
     output = {
         "lastUpdated": datetime.utcnow().isoformat() + "Z",
         "streamer": STREAMER_NAME,
@@ -136,7 +187,7 @@ def calculate_stats():
         "stats": {
             "averageDelay": round(avg_delay, 1),
             "totalStreamTime": sum(s['durationMinutes'] for s in streams_data),
-            "mostPlayedGame": "Just Chatting",
+            "mostPlayedGame": most_played,
             "longestDelay": max(s['delayMinutes'] for s in streams_data) if streams_data else 0,
             "shortestDelay": min(s['delayMinutes'] for s in streams_data) if streams_data else 0
         }
@@ -146,8 +197,10 @@ def calculate_stats():
     if not os.path.exists('public'):
         os.makedirs('public')
 
-    with open('public/stats.json', 'w') as f:
-        json.dump(output, f, indent=2)
+    # Write JSON with explicit encoding and no trailing garbage
+    with open('public/stats.json', 'w', encoding='utf-8') as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
+        f.truncate() # Ensure file is exactly the size of the JSON
     
     print(f"Stats updated successfully in public/stats.json (Discord Enabled: {DISCORD_ENABLED})")
 
