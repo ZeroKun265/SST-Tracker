@@ -1,0 +1,5 @@
+{
+  "name": "SST Clock",
+  "description": "Tracking Sara's Standard Time (SST) - stats for twitch streamer omenkitty12 including stream delays and frequency.",
+  "requestFramePermissions": []
+}
