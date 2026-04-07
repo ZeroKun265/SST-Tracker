@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-07T16:30:08.761204Z",
+  "lastUpdated": "2026-04-07T16:32:43.929316Z",
   "streamer": "omenkitty12",
   "streams": [
     {
@@ -312,7 +312,7 @@
     }
   ],
   "stats": {
-    "averageDelay": 15.59,
+    "averageDelay": 15.6,
     "totalStreamTime": 3582,
     "longestDelay": 32.0,
     "shortestDelay": 1.0
