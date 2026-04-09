@@ -1,7 +1,31 @@
 {
-  "lastUpdated": "2026-04-07T16:32:43.929316Z",
+  "lastUpdated": "2026-04-09T20:24:17.758294Z",
   "streamer": "omenkitty12",
   "streams": [
+    {
+      "id": "2743804861",
+      "vod_ids": [
+        "2743804861"
+      ],
+      "date": "2026-04-09",
+      "startTime": "2026-04-09T15:07:02Z",
+      "endTime": "2026-04-09T17:14:02Z",
+      "durationMinutes": 127,
+      "announcedTime": "2026-04-09T15:07:02Z",
+      "delayMinutes": 30.0
+    },
+    {
+      "id": "2742269361",
+      "vod_ids": [
+        "2742269361"
+      ],
+      "date": "2026-04-07",
+      "startTime": "2026-04-07T16:39:07Z",
+      "endTime": "2026-04-07T18:32:07Z",
+      "durationMinutes": 113,
+      "announcedTime": "2026-04-07T16:39:07Z",
+      "delayMinutes": 20.0
+    },
     {
       "id": "2739860527",
       "vod_ids": [
@@ -312,8 +336,8 @@
     }
   ],
   "stats": {
-    "averageDelay": 15.6,
-    "totalStreamTime": 3582,
+    "averageDelay": 16.24,
+    "totalStreamTime": 3822,
     "longestDelay": 32.0,
     "shortestDelay": 1.0
   }
