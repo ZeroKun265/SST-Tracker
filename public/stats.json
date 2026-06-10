@@ -1,7 +1,69 @@
 {
-  "lastUpdated": "2026-05-23T13:21:49.296327Z",
+  "lastUpdated": "2026-06-10T08:58:36.076036Z",
   "streamer": "omenkitty12",
   "streams": [
+    {
+      "id": "2792570049",
+      "vod_ids": [
+        "2792570049",
+        "2792522497"
+      ],
+      "date": "2026-06-09",
+      "startTime": "2026-06-09T15:10:25Z",
+      "endTime": "2026-06-09T17:22:39Z",
+      "durationMinutes": 131,
+      "announcedTime": "2026-06-09T15:10:25Z",
+      "delayMinutes": 29.0
+    },
+    {
+      "id": "2788485027",
+      "vod_ids": [
+        "2788485027"
+      ],
+      "date": "2026-06-04",
+      "startTime": "2026-06-04T15:41:57Z",
+      "endTime": "2026-06-04T18:01:57Z",
+      "durationMinutes": 140,
+      "announcedTime": "2026-06-04T15:41:57Z",
+      "delayMinutes": 60.0
+    },
+    {
+      "id": "2787060352",
+      "vod_ids": [
+        "2787060352"
+      ],
+      "date": "2026-06-02",
+      "startTime": "2026-06-02T19:26:16Z",
+      "endTime": "2026-06-02T21:40:16Z",
+      "durationMinutes": 134,
+      "announcedTime": "2026-06-02T19:26:16Z",
+      "delayMinutes": 36.0
+    },
+    {
+      "id": "2782921027",
+      "vod_ids": [
+        "2782921027",
+        "2782915549"
+      ],
+      "date": "2026-05-28",
+      "startTime": "2026-05-28T14:23:46Z",
+      "endTime": "2026-05-28T15:49:35Z",
+      "durationMinutes": 85,
+      "announcedTime": "2026-05-28T14:23:46Z",
+      "delayMinutes": 37.0
+    },
+    {
+      "id": "2781513999",
+      "vod_ids": [
+        "2781513999"
+      ],
+      "date": "2026-05-26",
+      "startTime": "2026-05-26T18:28:05Z",
+      "endTime": "2026-05-26T19:57:05Z",
+      "durationMinutes": 89,
+      "announcedTime": "2026-05-26T18:28:05Z",
+      "delayMinutes": 51.0
+    },
     {
       "id": "2777481872",
       "vod_ids": [
@@ -512,8 +574,8 @@
     }
   ],
   "stats": {
-    "averageDelay": 19.88,
-    "totalStreamTime": 5493,
+    "averageDelay": 22.25,
+    "totalStreamTime": 6072,
     "longestDelay": 68.0,
     "shortestDelay": 1.0
   }
