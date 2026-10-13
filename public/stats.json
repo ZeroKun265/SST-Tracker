@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-13T20:05:10.617239Z",
+  "lastUpdated": "2026-10-13T20:07:43.750755Z",
   "streamer": "omenkitty12",
   "streams": [
     {
@@ -26,7 +26,7 @@
       "endTime": "2026-10-02T23:29:15Z",
       "durationMinutes": 90,
       "announcedTime": "2026-10-02T21:58:36Z",
-      "delayMinutes": 37.0
+      "delayMinutes": 3.0
     },
     {
       "id": "2886583014",
@@ -961,7 +961,7 @@
     }
   ],
   "stats": {
-    "averageDelay": 25.65,
+    "averageDelay": 25.22,
     "totalStreamTime": 9670,
     "longestDelay": 99.0,
     "shortestDelay": 1.0
