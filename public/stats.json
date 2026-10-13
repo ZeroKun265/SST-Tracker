@@ -1,7 +1,195 @@
 {
-  "lastUpdated": "2026-08-21T09:21:07.009992Z",
+  "lastUpdated": "2026-10-13T20:05:10.617239Z",
   "streamer": "omenkitty12",
   "streams": [
+    {
+      "id": "2892889676",
+      "vod_ids": [
+        "2892889676",
+        "2892886578"
+      ],
+      "date": "2026-10-05",
+      "startTime": "2026-10-05T21:09:32Z",
+      "endTime": "2026-10-05T22:56:55Z",
+      "durationMinutes": 107,
+      "announcedTime": "2026-10-05T21:09:32Z",
+      "delayMinutes": 4.0
+    },
+    {
+      "id": "2890186837",
+      "vod_ids": [
+        "2890186837",
+        "2890159292"
+      ],
+      "date": "2026-10-02",
+      "startTime": "2026-10-02T21:58:36Z",
+      "endTime": "2026-10-02T23:29:15Z",
+      "durationMinutes": 90,
+      "announcedTime": "2026-10-02T21:58:36Z",
+      "delayMinutes": 37.0
+    },
+    {
+      "id": "2886583014",
+      "vod_ids": [
+        "2886583014"
+      ],
+      "date": "2026-09-28",
+      "startTime": "2026-09-28T19:17:06Z",
+      "endTime": "2026-09-28T20:56:06Z",
+      "durationMinutes": 99,
+      "announcedTime": "2026-09-28T19:17:06Z",
+      "delayMinutes": 28.0
+    },
+    {
+      "id": "2882997171",
+      "vod_ids": [
+        "2882997171",
+        "2882984391"
+      ],
+      "date": "2026-09-24",
+      "startTime": "2026-09-24T19:22:13Z",
+      "endTime": "2026-09-24T20:48:12Z",
+      "durationMinutes": 85,
+      "announcedTime": "2026-09-24T19:22:13Z",
+      "delayMinutes": 29.0
+    },
+    {
+      "id": "2880412231",
+      "vod_ids": [
+        "2880412231"
+      ],
+      "date": "2026-09-21",
+      "startTime": "2026-09-21T19:08:23Z",
+      "endTime": "2026-09-21T20:43:23Z",
+      "durationMinutes": 95,
+      "announcedTime": "2026-09-21T19:08:23Z",
+      "delayMinutes": 27.0
+    },
+    {
+      "id": "2875974780",
+      "vod_ids": [
+        "2875974780"
+      ],
+      "date": "2026-09-16",
+      "startTime": "2026-09-16T20:22:18Z",
+      "endTime": "2026-09-16T21:58:18Z",
+      "durationMinutes": 96,
+      "announcedTime": "2026-09-16T20:22:18Z",
+      "delayMinutes": 0.0
+    },
+    {
+      "id": "2873439468",
+      "vod_ids": [
+        "2873439468",
+        "2873438464"
+      ],
+      "date": "2026-09-13",
+      "startTime": "2026-09-13T19:59:40Z",
+      "endTime": "2026-09-13T21:33:38Z",
+      "durationMinutes": 93,
+      "announcedTime": "2026-09-13T19:59:40Z",
+      "delayMinutes": 26.0
+    },
+    {
+      "id": "2871523740",
+      "vod_ids": [
+        "2871523740",
+        "2871518029",
+        "2871516706"
+      ],
+      "date": "2026-09-11",
+      "startTime": "2026-09-11T20:02:52Z",
+      "endTime": "2026-09-11T22:20:38Z",
+      "durationMinutes": 130,
+      "announcedTime": "2026-09-11T20:02:52Z",
+      "delayMinutes": 11.0
+    },
+    {
+      "id": "2867887808",
+      "vod_ids": [
+        "2867887808"
+      ],
+      "date": "2026-09-07",
+      "startTime": "2026-09-07T16:22:24Z",
+      "endTime": "2026-09-07T18:22:24Z",
+      "durationMinutes": 120,
+      "announcedTime": "2026-09-07T16:22:24Z",
+      "delayMinutes": 43.0
+    },
+    {
+      "id": "2862732252",
+      "vod_ids": [
+        "2862732252"
+      ],
+      "date": "2026-09-01",
+      "startTime": "2026-09-01T20:54:20Z",
+      "endTime": "2026-09-01T22:44:20Z",
+      "durationMinutes": 110,
+      "announcedTime": "2026-09-01T20:54:20Z",
+      "delayMinutes": 3.0
+    },
+    {
+      "id": "2859753741",
+      "vod_ids": [
+        "2859753741",
+        "2859749859"
+      ],
+      "date": "2026-08-29",
+      "startTime": "2026-08-29T15:08:08Z",
+      "endTime": "2026-08-29T16:21:24Z",
+      "durationMinutes": 72,
+      "announcedTime": "2026-08-29T15:08:08Z",
+      "delayMinutes": 11.0
+    },
+    {
+      "id": "2857183946",
+      "vod_ids": [
+        "2857183946"
+      ],
+      "date": "2026-08-26",
+      "startTime": "2026-08-26T19:16:13Z",
+      "endTime": "2026-08-26T21:16:13Z",
+      "durationMinutes": 120,
+      "announcedTime": "2026-08-26T19:16:13Z",
+      "delayMinutes": 18.0
+    },
+    {
+      "id": "2856253821",
+      "vod_ids": [
+        "2856253821",
+        "2856242394"
+      ],
+      "date": "2026-08-25",
+      "startTime": "2026-08-25T18:27:16Z",
+      "endTime": "2026-08-25T20:56:21Z",
+      "durationMinutes": 149,
+      "announcedTime": "2026-08-25T18:27:16Z",
+      "delayMinutes": 20.0
+    },
+    {
+      "id": "2855245891",
+      "vod_ids": [
+        "2855245891"
+      ],
+      "date": "2026-08-24",
+      "startTime": "2026-08-24T16:12:49Z",
+      "endTime": "2026-08-24T18:25:49Z",
+      "durationMinutes": 133,
+      "announcedTime": "2026-08-24T16:12:49Z",
+      "delayMinutes": 35.0
+    },
+    {
+      "id": "2853558862",
+      "vod_ids": [
+        "2853558862"
+      ],
+      "date": "2026-08-22",
+      "startTime": "2026-08-22T19:05:14Z",
+      "endTime": "2026-08-22T20:54:14Z",
+      "durationMinutes": 109,
+      "announcedTime": "2026-08-22T19:05:14Z",
+      "delayMinutes": 50.0
+    },
     {
       "id": "2844398057",
       "vod_ids": [
@@ -773,8 +961,8 @@
     }
   ],
   "stats": {
-    "averageDelay": 25.92,
-    "totalStreamTime": 8062,
+    "averageDelay": 25.65,
+    "totalStreamTime": 9670,
     "longestDelay": 99.0,
     "shortestDelay": 1.0
   }
